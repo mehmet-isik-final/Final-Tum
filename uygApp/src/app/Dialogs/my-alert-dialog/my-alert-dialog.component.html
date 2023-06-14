@@ -1,0 +1,12 @@
+<div style="width: 300px;height: 100px;">
+  <mat-toolbar [color]="dialogIslem ? 'warn':'primary'">
+    <span>{{dialogBaslik}}</span>
+    <button mat-icon-button (click)="dialogRef.close()" style="margin-left: 110px;">
+      <mat-icon aria-label="label" color="warn">highlight_off</mat-icon>
+    </button>
+  </mat-toolbar>
+  <div style="margin-top: 20px;margin-left: 10px;font-size: large;">
+    {{dialogMesaj}}
+  </div>
+  <!-- <button mat-raised-button style="margin-left: 200px; margin-top: 20px;" (click)="dialogRef.close()" [color]="dialogIslem ? 'warn':'primary'">Kapat</button> -->
+</div>

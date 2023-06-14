@@ -1,0 +1,101 @@
+<mat-toolbar style="background-color: rgba(199, 201, 202, 0.444);">
+
+
+  <h1 style="margin-top: 15px;margin-left: 30px;" [routerLink]="['/adminHome']">Urun Portal </h1>
+
+  <button mat-raised-button style="margin-left: 1320px;font-size: large;" [routerLink]="['/ekleduzenle']">
+    Kategoriler
+  </button>
+  <button mat-button style="margin-left: 20px;font-size: large;" [routerLink]="['/userekleduzenle']">
+    Kullanıcılar
+  </button>
+
+  <button mat-button [matMenuTriggerFor]="menu2" *ngIf="!apiServis.oturumKontrol()" (click)="OturumAcDialog()"
+    style="margin-left: 20px;font-size: large;">
+    Oturum Aç
+  </button>
+  <button mat-button [matMenuTriggerFor]="menu2" *ngIf="apiServis.oturumKontrol()"
+    style="margin-left: 20px;font-size: large;">
+    "<b> {{uAdi}} </b>"
+  </button>
+
+  <mat-menu #menu2="matMenu">
+    <button mat-raised-button *ngIf="apiServis.oturumKontrol()" (click)="OturumKapat()" style="font-size: medium;"
+      color="warn">Oturumu Kapat</button>
+
+  </mat-menu>
+  <button mat-icon-button class="example-icon" style="margin-left: 20px;" (click)="sidenav.toggle()">
+    <mat-icon>settings</mat-icon>
+  </button>
+
+
+</mat-toolbar>
+
+
+
+
+<mat-sidenav-container class="example-container">
+  <mat-sidenav #sidenav mode="over" class="sidenav-Content">
+    <button mat-raised-button class="menu-button" color="accent" (click)="KategoriEkle()">KategoriEkle</button>
+
+    <button mat-raised-button class="menu-button" color="primary" [routerLink]="['']">
+      Aansayfa </button>
+    <button mat-raised-button class="menu-button" color="primary" [routerLink]="['/ekleduzenle']">
+      Kategoriler </button>
+    <button mat-raised-button class="menu-button" color="primary" [routerLink]="['/userekleduzenle']">
+      Kullanıcılar
+    </button>
+
+    <button mat-raised-button class="menu-button" color="warn" *ngIf="!apiServis.oturumKontrol()"
+      (click)="OturumAcDialog()">
+      Oturum Aç
+    </button>
+    <button mat-raised-button class="menu-button" color="warn" *ngIf="apiServis.oturumKontrol()">
+      "<b> {{uAdi}} </b>"
+    </button>
+    <button mat-raised-button class="menu-button" color="warn" *ngIf="apiServis.oturumKontrol()"
+      (click)="OturumKapat()">Oturumu Kapat</button>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <div>
+      <!-- ! Kategoriler -->
+      <mat-table [dataSource]="dataSource" matSort style="margin-top: 10px;" class="form-container">
+        <ng-container matColumnDef="katAdi">
+          <mat-header-cell *matHeaderCellDef mat-sort-header> Kategori Adi
+          </mat-header-cell>
+          <mat-cell *matCellDef="let kategoriler"> {{kategoriler.katAdi}} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="katId">
+          <mat-header-cell *matHeaderCellDef mat-sort-header> Kategori ID
+          </mat-header-cell>
+          <mat-cell *matCellDef="let kategoriler"> {{kategoriler.katId}} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="islemler">
+          <mat-header-cell *matHeaderCellDef> İşlemler
+          </mat-header-cell>
+          <mat-cell *matCellDef="let kategoriler">
+
+            <button mat-icon-button color="accent" matTooltip="Düzenle" (click)="KategoriDuzenle(kategoriler)">
+              <mat-icon aria-hidden="false" aria-label="label">edit</mat-icon>
+            </button>
+
+            <button mat-icon-button color="warn" matTooltip="Sil" (click)="KategoriSil(kategoriler)">
+              <mat-icon aria-hidden="false" aria-label="label">delete</mat-icon>
+            </button>
+          </mat-cell>
+        </ng-container>
+
+
+        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+      </mat-table>
+      <mat-paginator [length]="100" [pageSize]="5" [pageSizeOptions]="[5, 10, 25, 100]">
+      </mat-paginator>
+    </div>
+
+
+
+  </mat-sidenav-content>
+</mat-sidenav-container>

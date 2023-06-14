@@ -1,0 +1,15 @@
+<h2 style="margin-left: 35px;">Oturum Aç</h2>
+
+<mat-form-field appearance="outline" style="width: 80%; margin-left: 20px;">
+  <mat-label>Kullanıcı Adı</mat-label>
+  <input matInput placeholder="Kullanıcı Adı" type="text" #kadi>
+</mat-form-field>
+
+<mat-form-field appearance="outline" style="width: 80%; margin-left: 20px;">
+  <mat-label>Parola</mat-label>
+  <input matInput placeholder="Parola" type="password" #parola>
+</mat-form-field>
+
+<button mat-raised-button color="accent" style="margin-left: 90px;"
+  (click)="OturumAc(kadi.value,parola.value)">Giriş</button>
+<button mat-raised-button color="warn" style="margin-left: 15px;" (click)="KullaniciEkle()">Kayıt</button>

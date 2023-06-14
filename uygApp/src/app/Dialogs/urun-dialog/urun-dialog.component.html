@@ -1,0 +1,79 @@
+<mat-toolbar color="primary" class="mat-elevation-z6">
+  <span>{{dialogBaslik}}</span>
+</mat-toolbar>
+<div>
+  <form [formGroup]="urunForm">
+
+    <mat-form-field appearance="outline" style="margin-top: 20px; margin-left: 20px;">
+      <mat-label>Ürün :</mat-label>
+      <input matInput placeholder="Ürün Adı Giriniz" formControlName="urunAdi" type="text" required>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" style=" margin-left: 20px;">
+      <mat-label>Ürün Detayı :</mat-label>
+      <input matInput placeholder="Ürün Detaylı Bilgisi" formControlName="urunBilgi" type="text" required>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" style=" margin-left: 20px;">
+      <mat-label>Ürün Fiyatı :</mat-label>
+      <input matInput placeholder="Ürünün Fiyatı" formControlName="urunFiyat" type="number" required>
+    </mat-form-field>
+
+
+    <mat-form-field appearance="outline" style=" margin-left: 20px;">
+      <mat-label>Kategori Bilgisi</mat-label>
+      <mat-select formControlName="urunKat" required>
+        <mat-option *ngFor="let kategori of kategoriler" [value]="kategori.katAdi"> {{kategori.katAdi}} </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" style=" margin-left: 20px;">
+      <mat-label>Değerlendirme :</mat-label>
+      <input matInput placeholder="0 ile 100 arasında " formControlName="urunDeger" type="number" required>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" style=" margin-left: 20px;">
+      <mat-label>Stok Bilgisi :</mat-label>
+      <input matInput placeholder="Stok Miktarı" formControlName="urunStok" type="number" required>
+    </mat-form-field>
+
+
+
+    <mat-form-field appearance="outline" style=" margin-left: 20px;width: 213px;">
+      <mat-label>Ürün Kaydı :</mat-label>
+      <input matInput [matDatepicker]="datepicker1" formControlName="urunKayit" placeholder="Ay/Gün/Yıl" required>
+      <mat-datepicker-toggle matIconSuffix [for]="datepicker1"></mat-datepicker-toggle>
+      <mat-datepicker #datepicker1>
+        <mat-datepicker-actions>
+          <button mat-button matDatepickerCancel>İptal</button>
+          <button mat-raised-button color="primary" matDatepickerApply>Onayla</button>
+        </mat-datepicker-actions>
+      </mat-datepicker>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" style=" margin-left: 20px;width: 213px;">
+      <mat-label>Ürün Düzenlenme :</mat-label>
+      <input matInput [matDatepicker]="datepicker2" placeholder="Ay/Gün/Yıl" formControlName="urunDuzenlenme" required>
+
+      <mat-datepicker-toggle matIconSuffix [for]="datepicker2"></mat-datepicker-toggle>
+      <mat-datepicker #datepicker2>
+        <mat-datepicker-actions>
+          <button mat-button matDatepickerCancel>İptal</button>
+          <button mat-raised-button color="primary" matDatepickerApply>Onayla</button>
+        </mat-datepicker-actions>
+      </mat-datepicker>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" style=" margin-left: 20px; width: 450px;">
+      <mat-label>Ürün Resmi</mat-label>
+      <input matInput placeholder="sadece .jpg" formControlName="urunResim" type="text" required>
+    </mat-form-field>
+
+  </form>
+</div>
+
+
+
+<button mat-raised-button color="primary" (click)="dialogRef.close(urunForm.value)" style="margin-left: 265px;">Ürünü
+  Ekle</button>
+<button mat-raised-button color="warn" (click)="dialogRef.close()" style="margin-left: 25px;">İptal</button>

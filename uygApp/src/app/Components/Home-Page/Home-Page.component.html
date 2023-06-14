@@ -1,0 +1,162 @@
+<mat-toolbar style="background-color: rgba(199, 201, 202, 0.444);">
+
+
+  <h1 style="margin-top: 25px;margin-left: 30px;margin-right: 100px;" [routerLink]="['adminHome']">Admin Urun Portal </h1>
+
+  <h1 style="margin-top: 25px;margin-right: 900px;" [routerLink]="['']">Uye Urun Portal </h1>
+
+  <button mat-button  style="margin-top: 15px;font-size: large;" [routerLink]="['/ekleduzenle']">
+    Kategoriler
+  </button>
+
+  <button mat-button style="margin-top: 15px;margin-left: 20px;font-size: large;" [routerLink]="['/userekleduzenle']">
+    Kullanıcılar
+  </button>
+
+  <button mat-button [matMenuTriggerFor]="menu2" *ngIf="!apiServis.oturumKontrol()" (click)="OturumAcDialog()"
+    style=" margin-top: 15px;margin-left: 20px;font-size: large;">
+    Oturum Aç
+  </button>
+  <button mat-button [matMenuTriggerFor]="menu2" *ngIf="apiServis.oturumKontrol()"
+    style="margin-top: 15px;margin-left: 20px;font-size: large;">
+    "<b> {{uAdi}} </b>"
+  </button>
+  <button mat-icon-button [matMenuTriggerFor]="menu"
+    style="margin-top: 15px;margin-left: 20px;"><mat-icon>shopping_cart</mat-icon></button>
+  <mat-menu #menu="matMenu">
+    <div *ngFor="let urun of urunler">
+      <button mat-menu-item *ngIf="urun.urunSecili == 0">{{urun.urunAdi}}</button>
+    </div>
+  </mat-menu>
+
+
+  <mat-menu #menu2="matMenu">
+    <button mat-raised-button *ngIf="apiServis.oturumKontrol()" (click)="OturumKapat()" style="font-size: medium;"
+      color="warn">Oturumu Kapat</button>
+
+  </mat-menu>
+  <button mat-icon-button class="example-icon" style="margin-left: 20px;margin-top: 15px;" (click)="sidenav.toggle()">
+    <mat-icon>settings</mat-icon>
+  </button>
+
+
+</mat-toolbar>
+
+
+<mat-sidenav-container class="example-container" style="background-image:url('');">
+  <mat-sidenav #sidenav mode="over" class="sidenav-Content">
+
+    <button mat-raised-button class="menu-button" color="accent" (click)="UrunEkle()">Urun
+      Ekle</button>
+
+    <button mat-raised-button class="menu-button" color="primary" [routerLink]="['']">
+      Aansayfa </button>
+
+    <button mat-raised-button  class="menu-button" color="primary" [routerLink]="['/ekleduzenle']">
+      Kategoriler </button>
+
+    <button mat-raised-button class="menu-button" color="primary" [routerLink]="['/userekleduzenle']">
+      Kullanıcılar
+    </button>
+
+    <button mat-raised-button class="menu-button" color="primary" *ngIf="!apiServis.oturumKontrol()"
+      (click)="OturumAcDialog()">
+      Oturum Aç
+    </button>
+    <button mat-raised-button class="menu-button" color="primary" *ngIf="apiServis.oturumKontrol()">
+      "<b> {{uAdi}} </b>"
+    </button>
+    <button mat-raised-button class="menu-button" color="warn" *ngIf="apiServis.oturumKontrol()"
+      (click)="OturumKapat()">Oturumu Kapat</button>
+
+
+
+  </mat-sidenav>
+
+  <mat-sidenav-content>
+
+    <div class="card-sidebyside">
+
+      <mat-card class="reklam-table"><a href="https://www.trendyol.com/">
+          <img
+            src="https://cdn.dsmcdn.com/mnresize/500/500/marketing/datascience/automation/2023/2/20/Siparisinumut_Tepebanner_200223_202302202219.jpg"
+            alt="" style="height: 150px;width:450px ;"></a>
+
+
+      </mat-card>
+
+      <mat-card class="reklam-table-iki"><a href="https://www.trendyol.com/">
+          <img
+            src="https://cdn.dsmcdn.com/mnresize/500/500/marketing/datascience/automation/2023/4/6/Tobb_Tepebanner_0304231_202304061225.png"
+            alt="" style="height: 150px;width:450px ;"></a>
+
+      </mat-card>
+
+      <mat-card class="reklam-table-iki"><a href="https://www.trendyol.com/">
+          <img
+            src="https://cdn.dsmcdn.com/mnresize/500/500/marketing/datascience/automation/2023/2/17/Bakanlik1_202302171954.jpg"
+            alt="" style="height: 150px;width:450px ;"></a>
+      </mat-card>
+    </div>
+
+    <div class="container">
+      <div class="card-sidebyside" style="margin-left: 165px;">
+        <mat-card class="card-body" *ngFor="let urun of urunler">
+          <img src="{{urun.urunResim}}" class="card-image">
+
+          <mat-card-header>
+            <mat-card-title class="card-text">{{urun.urunAdi}}</mat-card-title>
+            <mat-card-title class="card-text">[{{urun.urunKat}}]</mat-card-title>
+          </mat-card-header>
+          <mat-card-content class="card-text-mini">
+            <h3 style="margin-top: 10px;"><b> Ürün Fiyatı :</b> {{urun.urunFiyat}}.00 TL</h3>
+            <h3><b> Ürün Değerlendirmesi :</b><mat-progress-bar mode="determinate" style="margin-top: 10px;"
+                value="{{urun.urunDeger}}"></mat-progress-bar></h3>
+
+
+            <button mat-raised-button color="accent" style="color: antiquewhite;"
+              style="color: antiquewhite;margin-left: 0px;" [routerLink]="['/urun',urun.urunId]">Detay</button>
+
+
+            <button mat-raised-button style="margin-left: 15px;" color="primary" *ngIf="urun.urunSecili === 0  null "
+              (click)="urun.urunSecili = 1 ">Çıkart</button>
+            <button mat-raised-button style="margin-left: 15px;" *ngIf="urun.urunSecili === 1 || null"
+              (click)="urun.urunSecili = 0">Ekle</button>
+
+          </mat-card-content>
+        </mat-card>
+      </div>
+
+    </div>
+  
+      <div class="footer">
+      
+
+        <mat-list role="list" class="footer-text">
+          <mat-list-item role="listitem" [routerLink]="['/userekleduzenle']">Kategoriler</mat-list-item>
+          
+        </mat-list>
+  
+        <mat-list role="list" class="footer-text">
+       
+          <mat-list-item role="listitem" [routerLink]="['/userekleduzenle']">Kullanıcılarımız</mat-list-item>
+
+        </mat-list>
+  
+        <mat-list role="list" class="footer-text">
+          <mat-list-item role="button" *ngIf="!apiServis.oturumKontrol()" (click)="OturumAcDialog()">Oturum
+            Aç</mat-list-item>
+              
+          <mat-list-item role="button" *ngIf="apiServis.oturumKontrol()"> " {{uAdi}} "</mat-list-item>
+        </mat-list>
+        
+        <mat-list role="list" class="footer-text">
+          <mat-list-item role="button" *ngIf="apiServis.oturumKontrol()" (click)="OturumKapat()"> Oturumu
+            Kapat</mat-list-item>
+        </mat-list>
+      </div>
+
+
+
+  </mat-sidenav-content>
+</mat-sidenav-container>
