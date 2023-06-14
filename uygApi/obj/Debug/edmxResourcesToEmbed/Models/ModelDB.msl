@@ -1,0 +1,50 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="DBURUNModelStoreContainer" CdmEntityContainer="DBURUNEntities">
+    <EntitySetMapping Name="Kategori">
+      <EntityTypeMapping TypeName="DBURUNModel.Kategori">
+        <MappingFragment StoreEntitySet="Kategori">
+          <ScalarProperty Name="katAdi" ColumnName="katAdi" />
+          <ScalarProperty Name="katId" ColumnName="katId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Kayit">
+      <EntityTypeMapping TypeName="DBURUNModel.Kayit">
+        <MappingFragment StoreEntitySet="Kayit">
+          <ScalarProperty Name="kayitKategoriId" ColumnName="kayitKategoriId" />
+          <ScalarProperty Name="kayitUrunId" ColumnName="kayitUrunId" />
+          <ScalarProperty Name="kayitId" ColumnName="kayitId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Kullanici">
+      <EntityTypeMapping TypeName="DBURUNModel.Kullanici">
+        <MappingFragment StoreEntitySet="Kullanici">
+          <ScalarProperty Name="userAdmin" ColumnName="userAdmin" />
+          <ScalarProperty Name="userSifre" ColumnName="userSifre" />
+          <ScalarProperty Name="userMail" ColumnName="userMail" />
+          <ScalarProperty Name="userAdi" ColumnName="userAdi" />
+          <ScalarProperty Name="userId" ColumnName="userId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Urun">
+      <EntityTypeMapping TypeName="DBURUNModel.Urun">
+        <MappingFragment StoreEntitySet="Urun">
+          <ScalarProperty Name="urunSecili" ColumnName="urunSecili" />
+          <ScalarProperty Name="urunDuzenlenme" ColumnName="urunDuzenlenme" />
+          <ScalarProperty Name="urunKayit" ColumnName="urunKayit" />
+          <ScalarProperty Name="urunResim" ColumnName="urunResim" />
+          <ScalarProperty Name="urunStok" ColumnName="urunStok" />
+          <ScalarProperty Name="urunDeger" ColumnName="urunDeger" />
+          <ScalarProperty Name="urunKat" ColumnName="urunKat" />
+          <ScalarProperty Name="urunFiyat" ColumnName="urunFiyat" />
+          <ScalarProperty Name="urunBilgi" ColumnName="urunBilgi" />
+          <ScalarProperty Name="urunAdi" ColumnName="urunAdi" />
+          <ScalarProperty Name="urunId" ColumnName="urunId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

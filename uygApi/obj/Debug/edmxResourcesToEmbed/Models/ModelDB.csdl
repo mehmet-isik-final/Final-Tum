@@ -1,0 +1,86 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="DBURUNModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityContainer Name="DBURUNEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Kategori" EntityType="DBURUNModel.Kategori" />
+    <EntitySet Name="Kayit" EntityType="DBURUNModel.Kayit" />
+    <EntitySet Name="Kullanici" EntityType="DBURUNModel.Kullanici" />
+    <EntitySet Name="Urun" EntityType="DBURUNModel.Urun" />
+    <AssociationSet Name="FK_Kayit_ToKategori" Association="DBURUNModel.FK_Kayit_ToKategori">
+      <End Role="Kategori" EntitySet="Kategori" />
+      <End Role="Kayit" EntitySet="Kayit" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Kayit_ToUrun" Association="DBURUNModel.FK_Kayit_ToUrun">
+      <End Role="Urun" EntitySet="Urun" />
+      <End Role="Kayit" EntitySet="Kayit" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Kategori">
+    <Key>
+      <PropertyRef Name="katId" />
+    </Key>
+    <Property Name="katId" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="katAdi" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Kayit" Relationship="DBURUNModel.FK_Kayit_ToKategori" FromRole="Kategori" ToRole="Kayit" />
+  </EntityType>
+  <EntityType Name="Kayit">
+    <Key>
+      <PropertyRef Name="kayitId" />
+    </Key>
+    <Property Name="kayitId" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="kayitUrunId" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="kayitKategoriId" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Kategori" Relationship="DBURUNModel.FK_Kayit_ToKategori" FromRole="Kayit" ToRole="Kategori" />
+    <NavigationProperty Name="Urun" Relationship="DBURUNModel.FK_Kayit_ToUrun" FromRole="Kayit" ToRole="Urun" />
+  </EntityType>
+  <EntityType Name="Kullanici">
+    <Key>
+      <PropertyRef Name="userId" />
+    </Key>
+    <Property Name="userId" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="userAdi" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="userMail" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="userSifre" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="userAdmin" Type="Int32" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Urun">
+    <Key>
+      <PropertyRef Name="urunId" />
+    </Key>
+    <Property Name="urunId" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="urunAdi" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="urunBilgi" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="urunFiyat" Type="Int32" Nullable="false" />
+    <Property Name="urunKat" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="urunDeger" Type="Int32" />
+    <Property Name="urunStok" Type="Int32" />
+    <Property Name="urunResim" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="urunKayit" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="urunDuzenlenme" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="urunSecili" Type="Int32" />
+    <NavigationProperty Name="Kayit" Relationship="DBURUNModel.FK_Kayit_ToUrun" FromRole="Urun" ToRole="Kayit" />
+  </EntityType>
+  <Association Name="FK_Kayit_ToKategori">
+    <End Type="DBURUNModel.Kategori" Role="Kategori" Multiplicity="1" />
+    <End Type="DBURUNModel.Kayit" Role="Kayit" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Kategori">
+        <PropertyRef Name="katId" />
+      </Principal>
+      <Dependent Role="Kayit">
+        <PropertyRef Name="kayitKategoriId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Kayit_ToUrun">
+    <End Type="DBURUNModel.Urun" Role="Urun" Multiplicity="1" />
+    <End Type="DBURUNModel.Kayit" Role="Kayit" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Urun">
+        <PropertyRef Name="urunId" />
+      </Principal>
+      <Dependent Role="Kayit">
+        <PropertyRef Name="kayitUrunId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>
